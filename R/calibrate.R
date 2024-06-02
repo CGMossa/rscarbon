@@ -28,7 +28,7 @@ calibrate <- function(
     "normal", "shcal13", "shcal13shkauri16", "shcal20"
   )
 
-  if (!calibration %in% all_calibrations){
+  if (!calibration %in% all_calibrations) {
 
     cli::cli_abort(
       "{calibration} is not a recognized calibration curve.",
@@ -37,18 +37,13 @@ calibrate <- function(
 
   }
 
-  path_to_calibration <- system.file(
-    "extdata", paste0(calibration, ".14c"),
-    package = "rcarbon"
-  )
-
   rust_calibrate(
     age = as.numeric(age),
     error = as.numeric(error),
     start = as.integer(time_range[2]),
     end = as.integer(time_range[1]),
     precision = as.numeric(precision),
-    path_to_calibration
+    calbs
   )
 
 }

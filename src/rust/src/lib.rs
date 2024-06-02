@@ -10,10 +10,12 @@ fn rust_calibrate(
     start: i32,
     end: i32,
     precision: f64,
-    calbp: &[f64],
-    c14bp: &[f64],
-    tau: &[f64],
+    calbs: Dataframe<()>,
 ) -> ExternalPtr<SparseColMat<usize, f64>> {
+    let calbp: &[f64] = calbs.dollar("calbp").unwrap().try_into().unwrap();
+    let c14bp: &[f64] = calbs.dollar("c14bp").unwrap().try_into().unwrap();
+    let tau: &[f64] = calbs.dollar("tau").unwrap().try_into().unwrap();
+
     let c14out: Vec<f64> = (start..end)
         .step_by(1)
         .rev()
